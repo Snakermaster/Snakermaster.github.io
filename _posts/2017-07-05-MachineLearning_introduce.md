@@ -2,8 +2,7 @@
 layout: post
 title: "机器学习入门"
 date: 2017-07-05 
-description: "转载专区"
-tag: 机器学习  
+tag: 转载专区  
 
 ---     
 

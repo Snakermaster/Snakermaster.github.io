@@ -1,0 +1,245 @@
+## 分页
+1.写sql：
+ 
+       select * from article where xxx limit 3 offset 2
+       
+2.通过切片进行分页
+
+    模型名.objects.all()[头下标:尾下标]
+
+3.Paginator
+    
+    page_num = request.POST.get('page')
+    articles = 模型名.objects.all()
+    paginator = Paginator(articles,3)
+    articles = paginator.page(int(page_num))
+    return render(request,'backweb/index.html',{"articles":articles})
+    
+4.页面中展示分页的信息
+
+    展示页面：
+    {% for num in page.Paginator.page_range%}
+    是否有上一页：{% if page.has_previous%}
+    如果有上一页：?page={{page.previous_page_number
+    }}
+    是否有下一页：{% if page.has_next%}
+    如果有下一页：?page={{page.next_page_number}}
+    
+    总页数：page.num_pages
+    当前页数：page.number
+    
+## 登录注册
+
+* Django自带的登录注册
+
+    
+    验证用户
+    auth.authenticate() 
+    auth.login()
+    auth.logut()
+    在urls中写,表示页面需要登录
+    login_required()
+    
+* 自己实现登录注册：
+ 
+登录步骤：
+
+    第一步：
+    登录的时候，向cookie中设置某个随机的字符串
+    第二步：
+    登录的时候，也向服务端保存这个随机字符串
+
+验证：
+
+    第一步：先获取cookie中的随机字符串
+    第二步：在服务端进行校验，判断cookie中的随机字符串是在服务端保存，并拿到相关的用户信息
+    第三步：如果拿不到用户的信息，则让用户跳转到登录
+    
+校验方法：
+
+    a) 使用中间件
+        def process_request
+        def process_view
+        def process_template_request
+        def process_response
+    b) 使用装饰器
+    
+## 文件上传
+
+a) 安装：pip install Pillow
+b) 模型的使用：
+        
+        image_url = models.ImageFiled(upload_to='upload')
+    在数据库中：image_url为varchar类型,存的是图片的地址
+c) 页面中选择图片
+    
+        <form action='' method='' enctype='multipart/form-data'>
+        <input type='file' name='img'>
+        </form>
+d）后端获取图片
+
+    获取图片的内容不是'GET'请求和'POST'请求，request.FILES请求
+    
+e）设置settings.py中的media路径
+    
+    MEDIA_URL = '/media'
+    MEDIA_ROOT=os.path.join(BATH_DIR,'media')
+f) 展示图片
+
+        <img src="/media/{{img_url}}">
+    
+g) 配置url，在工程目录中的url中配置media的信息
+
+        from django.contrib.staticfiles.urls import static
+        urlpattterns += static(setting.MEDIA_URL,document_root=setting.MEDIA_ROOT)
+    
+## 中间件
+
+    request.user 默认为：AnymouserUser
+    
+    记录当前登录系统的用户：
+    requset.user = user
+    
+    在任何页面中任何位置都可以使用{{ user }}去解析登录系统的user信息
+    
+## 权限
+
+    permissions = [p.p_name for p in user.u_r.r_p.all()]
+    
+    user.role_permission = all_permissions
+    requesr.user = user
+    页面中：
+    
+        {% if 'LISTARTICLES' in user.role_permissions%}
+    
+## 日志
+
+* 组件
+
+loggers:接收日志的入口
+
+handlers:处理日志，并按照指定的格式去保存
+
+filters:过滤，过滤loggers丢给handlers的日志信息
+
+formatters:指定格式
+    
+* 日志级别:
+
+        DEBUG<INFO<WARNING<ERROR<CRITICLA    
+
+## 前后分离
+
+
+    |VUE|restframework|
+    |:---:|:---------:|
+    |前端|后端|
+    
+a) 修改学生信息
+url定义：
+
+    /app/student/?stu_id=1&name=张三
+    
+    /app/student/1/?name=张三
+状态转移：
+
+    GET: 查询
+    POST: 创建
+    PUT: 用户修改(全部变量修改)
+    PATCH: 用于修改(部分变量修改)
+    DELETE: 删除
+
+* 请求方式POST, 请求url:/app/student/
+
+* 请求方式DELETE, 请求url:/app/student/1/
+    
+* 请求方式PATCH, 请求url:/app/student/1/  
+
+* 请求方式PUT,
+请求url:/app/student/1/
+
+1. 多线程在计算密集型，比单线程慢
+
+2. 多线程在IO密集型，比单线程快
+    
+## restful 
+ （业务逻辑）
+ 核心：资源/状态转移/借口统一
+    
+    GET /app/student/
+    
+    GET /app/students/[id]
+    
+    POST /app/students/
+    
+## ajax
+
+$.get(url,function(data){
+    
+    
+})
+    
+$.post(url,{'key':value},function(data){
+    
+    
+})
+    
+{% csrf_token %}
+var csrf = $('input[name="csrfmiddlewaretoken"]').val()    
+    
+$.ajax({
+    
+    url:'',
+    data:{'key':value},
+    datatype:'json',
+    headers:{'X-CSRFToken':csrf},
+    type:'POST/GET/DELETE/PUT/PUTCH'
+    success:function(data){
+        
+        
+    },
+    error:function(data){
+        
+        
+    }
+})    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    

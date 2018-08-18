@@ -1,0 +1,133 @@
+## 关系型数据库
+
+#### MySQL
+
+- 理论基础 : 关系代数 + 集合论
+
+- 特点
+
+  - 用二维表组织数据
+  - 行  -  记录
+  - 列  - 字段
+  - 主键  -  唯一性确定一条记列
+  - 方便CRUD操作(增删改查)
+  - 能够避免重复无效的数据
+  - 一读对N，在多的一方添加外键、N对M转换成为N对一和一对M在中间表添加2个外键 
+
+- MySQL语法
+
+  ```mysql
+  -- sql(structed query language) (结构查询语言)
+  -- DDL（data definition languagr） (数据定义语言)
+  -- create 、drop 、 alter
+  -- DML(data mainipulation language) (数据操作语言)
+  -- insert  、 delete  、 update
+  -- DQL(data query language) (数据查询语言)
+  -- select 
+  -- DCL(data control language) (数据控制语言)
+  -- grant  、 revoke   (授权、权限召回)
+  ```
+
+  ```mysql
+  -- 删除数据库
+  drop database if exists <name> ;
+  -- 创建数据库并指定字符集
+  creat database <name> default chaeset utf8;
+  -- 切换数据库
+  use <name>
+  -- 建表
+  create table <name>(
+  <name>id int not null comment '',
+   -- 数据(字段),
+  primary key (<name>id)
+  -- 插入数据
+  insert into 表名 (字段)  values()
+  -- 删除数据
+  delete from 表名 where 条件
+  -- 更新数据库
+  update 表名 set 字段='',字段='' where 条件
+  -- 添加唯一约束
+  alter table <name> add constraint uni_字段 unique(字段)
+  -- 添加外键
+  alter table <name> add constraint fk_字段 foreign key(字段) references <name>(字段) 
+  -- 添加主键
+  alter table <name> add constraint pk_字段 primary key(字段)
+  -- 添加列
+  alter table 表名 add column 字段 类型
+  -- 删除列
+  alter table 表名 drop column 字段
+  -- 查询所有信息
+  select *  from 表名
+  -- 笛卡尔积
+  select * from 表1，表2
+  -- 投影
+  select 字段 表名
+  -- 别名 (as可以省略不写)
+  select 字段 as 新名字 from 表名
+  -- 筛选
+  select * from 表名 where 条件
+  -- 多条件筛选
+  select * from 表名 where 条件 and 条件
+  -- 筛选出现范围(第一种中是闭区间)
+  select * from 表名 where between 条件(小) and 条件(大)
+  select * from 表名 where 条件(小)<=字段 and 字段<=条件(大)
+  -- 模糊查询(%通配符)
+  select * from 表名 where 字段=%已知%
+  -- 模糊查询(_指定数量的通配符)
+  select * from 表名 where 字段=已知_
+  -- 查询null 或 除null外
+  select * from 表名 where 字段 is null
+  select * from 表名 where 字段 not is null
+  -- 查询中出现null(当这条信息的该字段为null时查出来就是0)
+  select ifnull(字段,0) from 表名 where 条件
+  -- 分组
+  select * from 表名 group by 字段 
+  -- 排序(默认asc)
+  select * from 表名 order by 字段  desc
+  -- 分组后返回排序中的一段(x:要返回的个数 y:从第一个跳过的距离)(排序时一样的并不是并列而是有先后的)
+  select * from 表名 order by 字段 desc limit x,y
+  -- 分组、排序后进行查询
+  select * from 表名 group by having 条件
+  select * from 表名 order by having 条件
+  -- 聚合函数(sum 、max 、min 、avg 、count等)
+  select 函数(字段) from 表名 
+  -- 连接查询(第一种又叫做内连接、  inner join连接时不连接null,left join可以连接前面的null,right join可以连接后面的null,)
+  select 表1.字段 表2.字段 from 表1, 表2 where 连接条件
+  select 表1.字段 表2.字段 from 表1 inner join (
+  查询 、 筛选等操作 ) as 表2 on 连接条件
+  -- 子查询(一般用在2表之间的查询)
+  select 字段1 from 表名 where 字段2=(
+  select 字段2 from 表名2 where 条件)
+  -- 指定数字精度函数(x:总位数 y:小数位数)
+  decimal(x, y) 
+  -- 去重函数
+  distinct
+  -- 创建用户并指定密码
+  create user '用户名'@'%' identified by '密码'
+  grant all privileges on 数据库名.表名 to '用户名'@'%' 
+  revoke insert,update on 数据库名.表名 from '用户名'@'%' 
+  grant all privileges on *.* to '用户名'@'%' with grant option 
+  -- 召回权限(如果是授予全部权限就不能召回部分权限，需要全部召回)
+  revoke all on 数据库名.表名 from '用户名'@'%'
+  --   
+    
+ 
+
+- 关系型数据库的数据完整性
+
+  - 实体完整性   -   没有冗余（没有重复的记录）
+
+  - 主键、唯一索引、唯一约束
+
+  - 参照（引用）完整性   -  列的数据要参照其他表的主键（通常是主键）
+
+  - 外键（可以是自己的列（自参照完整性）） 
+
+  - 域完整性  -  表中的数据都是有效的
+
+  - 数据类型、非空约束（not null、默认值约束（default）、检查约束 添加检查约束(MySQL中检查约束不生效)
+
+ ```
+    mysql
+    alter table tb_score add constraint ck_score_score check (score between 0 and 100);
+ ```

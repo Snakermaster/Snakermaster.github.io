@@ -1,0 +1,122 @@
+---
+layout: post
+title: 爱鲜蜂项目相关
+date: 2018-08-25
+tag: 学习笔记
+---
+
+
+## SQL 创建
+
+```
+use axf;
+create table axf_users(
+id int not null  auto_increment comment '用户ID',
+username varchar(32) not null unique comment '用户名',
+password varchar(250) not null comment '密码',
+sex bit default 0 comment '性别',
+icon varchar(200) comment '头像',
+is_delete bit default 0 comment '删除',
+primary key(id)
+)
+
+create table axf_goods(
+ id int not null primary key auto_increment comment '商品表id', 
+ productid int not null unique comment '商品ID', 
+ productimg varchar(200) not null comment '商品图片',
+ productname varchar(100)not null comment '商品名称',
+ productlongname varchar(200) not null comment '商品规格',
+ isxf int not null comment '备用',
+ pmdesc varchar(100) not null comment '备用1',
+ specifics varchar(100) not null comment '规格', 
+ price decimal(10,2) default 0 comment '折后价格',
+ marketprice decimal(10,2) default 1 comment '原价', 
+ categoryid varchar(16) not null comment '分类ID',
+ childcid  varchar(16) not null comment '分类子ID',
+ childcidname varchar(100) not null comment '名称',
+ dealerid varchar(16) not null comment '不知道',
+ storenums int default 1 comment '排序',
+ productnum int default 1 comment '排序销量'
+)
+
+
+create table axf_cart(
+id int not null primary key auto_increment comment '购物车id',
+user_id int comment '关联商品',
+foreign key (user_id) references axf_users(id),
+goods_id int comment '商品个数',
+foreign key (goods_id) references axf_goods(productid),
+c_num int default 1,
+is_select bit default 1 comment '是否选择商品'
+)
+
+create table axf_order(
+id int not null primary key auto_increment comment '订单ID',
+user_id int comment '关联用户',
+foreign key (user_id) references axf_users(id),
+o_num varchar(64) not null comment '数量',
+o_status int default 0 comment '状态',
+o_create datetime default current_timestamp comment '创建时间'
+)
+
+
+create table axf_ordef_goods(
+id int primary key auto_increment comment '订单商品ID',
+goods_id int comment '关联商品',
+foreign key (goods_id) references axf_goods(productid),
+order_id int comment '关联订单',
+foreign key (order_id) references axf_order(id),
+goods_num int default 1 comment '商品个数'
+)
+
+
+create table axf_users_ticket(
+id int not null primary key auto_increment comment '',
+user_id int comment '关联用户',
+foreign key (user_id) references axf_users(id),
+ticket varchar(256) not null comment '密码',
+out_time datetime comment '过期时间'
+
+)
+
+
+create table axf_foodtypes(
+id int not null primary key auto_increment comment '侧边表ID',
+typeid varchar(16) not null comment '分类ID',
+typename varchar(100) not null comment '商品分类名称',
+childtypenames varchar(200) not null comment '商品子分类名称',
+typesort int default 1 comment '排序'
+)
+
+
+create table axf_mainshow(
+id int primary key auto_increment comment '展示ID',
+categoryid var
+brandname = mo
+img1 = models.Ch
+childcid1 = mode
+productid1 = mod
+longname1 = mode
+price1 = models.
+marketprice1 = m
+img2 = models.Ch
+childcid2 = mode
+productid2 = mod
+longname2 = mode
+price2 = models.
+marketprice2 = m
+img3 = models.Ch
+childcid3 = mode
+productid3 = mod
+longname3 = mode
+price3 = models.
+marketprice3 = m
+
+ 
+)
+
+
+
+
+
+```

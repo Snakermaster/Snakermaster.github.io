@@ -91,7 +91,7 @@ typesort int default 1 comment '排序'
 
 create table axf_mainshow(
 id int primary key auto_increment comment '展示ID',
-categoryid var
+categoryid var 
 brandname = mo
 img1 = models.Ch
 childcid1 = mode

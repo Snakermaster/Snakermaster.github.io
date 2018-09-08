@@ -56,7 +56,7 @@ tag: 工具
 
 ### 其它   
 
-git branc 查看时如出现
+git branch 查看时如出现
 
 >*  (HEAD detached at analytics_v2)   
 >*  dev

@@ -26,22 +26,28 @@ socket：
 
 processes：
     
-        在app加载前切换到当前目录 
+    在app加载前切换到当前目录 
+
 chdir:
 
     在app加载前切换到当前目录
+
 pythonpath：
 
     给PYTHONPATH 增加一个目录（或者一个egg），最多可以使用该选项64次。
+
 module：
 
     加载指定的python WSGI模块（模块路径必须在PYTHONPATH里）
+
 master：
 
     相当于master=true，启动一个master进程来管理其他进程，以上述配置为例，其中的4个uwsgi进程都是这个master进程的子进程，如果kill这个master进程，相当于重启所有的uwsgi进程
+
 pidfile：
 
     在失去权限前，将master的pid写到当前文件中
+
 daemonize：
 
     使进程在后台运行，并将日志打到指定的日志文件或者udp服务器（不会影响nginx日志的输出）

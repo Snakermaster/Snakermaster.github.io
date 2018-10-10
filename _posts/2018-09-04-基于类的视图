@@ -1,0 +1,24 @@
+```
+使用基于类的视图来重写API是一种强大的模式，它可以让我们重用常用功能，并且帮助我们保持代码干
+```
+配置：
+    
+    我们需要额外引入一个包
+    from rest_framework.views import APIView
+    将APIView作为参数传入到
+    
+    Snippetlist和Snippetdetail两个类中
+    其他步骤与之前的函数没有多大区别，所以这里不再累述
+    
+urls:
+将urlpatterns中的两个view的地址重写为views.Snippetlist.as_view()
+
+
+
+
+
+
+
+
+
+

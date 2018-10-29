@@ -15,8 +15,7 @@ Usage:
       2) Next make sure to change 'post.previous.date' to:
         => 'post.next.date'
         
--->
-{% endcomment %}
+-->{% endcomment %}
 
 {% if site.JB.posts_collate.provider == "custom" %}
   {% include custom/posts_collate %}
@@ -29,13 +28,14 @@ Usage:
   
     {% if forloop.first %}
     
-<div class="hat_title">
-<h2>{{this_month}}</h2>
-</div>
-<div class="post_list">
-<ul>
+    
+      <div class="hat_title">
+        <h3>{{this_year}}</h3>
+      </div>
+      <div class="post_list">
+      <ul>
       
- {% endif %}
+    {% endif %}
   
     <li>
       <span>

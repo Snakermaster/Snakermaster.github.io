@@ -86,6 +86,7 @@ minute hour day month week command
     command：要执行的命令，可以是系统命令，也可以是自己编写的脚本文件。
 在以上各个字段中，还可以使用以下特殊字符：
 
+```
 星号（*）：代表所有可能的值，例如month字段如果是星号，则表示在满足其它字段的制约条件后每月都执行该命令操作。
 
 逗号（,）：可以用逗号隔开的值指定一个列表范围，例如，“1,2,5,7,8,9”
@@ -93,6 +94,10 @@ minute hour day month week command
 中杠（-）：可以用整数之间的中杠表示一个整数范围，例如“2-6”表示“2,3,4,5,6”
 
 正斜线（/）：可以用正斜线指定时间的间隔频率，例如“0-23/2”表示每两小时执行一次。同时正斜线可以和星号一起使用，例如*/10，如果用在minute字段，表示每十分钟执行一次。
+
+```
+
+
 ## crond服务
 安装crontab：
 
@@ -109,8 +114,9 @@ minute hour day month week command
     /sbin/service crond reload //重新载入配置
     
     /sbin/service crond status //启动服务
-    
-    
+
+
+​    
     查看crontab服务是否已设置为开机启动，执行命令：
     
     ntsysv
@@ -118,28 +124,30 @@ minute hour day month week command
     加入开机自动启动：
     
     chkconfig –level 35 crond on
-    
+
 1．命令格式：
 
-crontab [-u user] file
+crontab  [-u user]  file
 
-crontab [-u user] [ -e | -l | -r ]
+crontab  [-u user ][ -e | - l | -r] 
 
 2．命令功能：
 
-通过crontab 命令，我们可以在固定的间隔时间执行指定的系统指令或 shell script脚本。时间间隔的单位可以是分钟、小时、日、月、周及以上的任意组合。这个命令非常设合周期性的日志分析或数据备份等工作。
+​	通过crontab 命令，我们可以在固定的间隔时间执行指定的系统指令或 shell script脚本。时间间隔的单位可以是分钟、小时、日、月、周及以上的任意组合。这个命令非常设合周期性的日志分析或数据备份等工作。
 
 3．命令参数：
 
--u user：用来设定某个用户的crontab服务，例如，“-u ixdba”表示设定ixdba用户的crontab服务，此参数一般有root用户来运行。
 
-file：file是命令文件的名字,表示将file做为crontab的任务列表文件并载入crontab。如果在命令行中没有指定这个文件，crontab命令将接受标准输入（键盘）上键入的命令，并将它们载入crontab。
 
--e：编辑某个用户的crontab文件内容。如果不指定用户，则表示编辑当前用户的crontab文件。
+​	-u user：用来设定某个用户的crontab服务，例如，“-u ixdba”表示设定ixdba用户的crontab服务，此参数一般有root用户来运行。
 
--l：显示某个用户的crontab文件内容，如果不指定用户，则表示显示当前用户的crontab文件内容。
+​	file：file是命令文件的名字,表示将file做为crontab的任务列表文件并载入crontab。如果在命令行中没有指定这个文件，crontab命令将接受标准输入（键盘）上键入的命令，并将它们载入crontab。
 
--r：从/var/spool/cron目录中删除某个用户的crontab文件，如果不指定用户，则默认删除当前用户的crontab文件。
+​	-e：编辑某个用户的crontab文件内容。如果不指定用户，则表示编辑当前用户的crontab文件。
+
+​	-l：显示某个用户的crontab文件内容，如果不指定用户，则表示显示当前用户的crontab文件内容。
+
+​	-r：从/var/spool/cron目录中删除某个用户的crontab文件，如果不指定用户，则默认删除当前用户的crontab文件。
 
 -i：在删除用户的crontab文件时给确认提示。
 
@@ -147,11 +155,11 @@ file：file是命令文件的名字,表示将file做为crontab的任务列表文
 
 1). 创建一个新的crontab文件
 
-在 考虑向cron进程提交一个crontab文件之前，首先要做的一件事情就是设置环境变量EDITOR。cron进程根据它来确定使用哪个编辑器编辑 crontab文件。9 9 %的UNIX和LINUX用户都使用vi，如果你也是这样，那么你就编辑$ HOME目录下的. profile文件，在其 中加入这样一行：
+​	在 考虑向cron进程提交一个crontab文件之前，首先要做的一件事情就是设置环境变量EDITOR。cron进程根据它来确定使用哪个编辑器编辑 crontab文件。9 9 %的UNIX和LINUX用户都使用vi，如果你也是这样，那么你就编辑$ HOME目录下的. profile文件，在其 中加入这样一行：
 
 EDITOR=vi; export EDITOR
 
-然后保存并退出。不妨创建一个名为<user> cron的文件，其中<user>是用户名，例如， davecron。在该文件中加入如下的内容。
+​	然后保存并退出。不妨创建一个名为<user> cron的文件，其中<user>是用户名，例如， davecron。在该文件中加入如下的内容。
 
 #### (put your own initials here)echo the date to the console every
 
@@ -161,7 +169,7 @@ EDITOR=vi; export EDITOR
 
 保存并退出。确信前面5个域用空格分隔。
 
-在 上面的例子中，系统将每隔1 5分钟向控制台输出一次当前时间。如果系统崩溃或挂起，从最后所显示的时间就可以一眼看出系统是什么时间停止工作的。在有些 系统中，用tty1来表示控制台，可以根据实际情况对上面的例子进行相应的修改。为了提交你刚刚创建的crontab文件，可以把这个新创建的文件作为 cron命令的参数：
+​	在 上面的例子中，系统将每隔1 5分钟向控制台输出一次当前时间。如果系统崩溃或挂起，从最后所显示的时间就可以一眼看出系统是什么时间停止工作的。在有些 系统中，用tty1来表示控制台，可以根据实际情况对上面的例子进行相应的修改。为了提交你刚刚创建的crontab文件，可以把这个新创建的文件作为 cron命令的参数：
 
 $ crontab davecron
 
@@ -235,7 +243,9 @@ $ crontab <filename>
 
 实例1：每1分钟执行一次command
 命令：
-* * * * * command
+
+```
+command
 实例2：每小时的第3和第15分钟执行
 命令：
 3,15 * * * * command
@@ -252,48 +262,47 @@ $ crontab <filename>
 命令：
 30 21 * * * /etc/init.d/smb restart
 
-
 实例7：每月1、10、22日的4 : 45重启smb 
 命令：
 45 4 1,10,22 * * /etc/init.d/smb restart
-
 
 实例8：每周六、周日的1 : 10重启smb
 命令：
 10 1 * * 6,0 /etc/init.d/smb restart
 
-
 实例9：每天18 : 00至23 : 00之间每隔30分钟重启smb 
 命令：
 0,30 18-23 * * * /etc/init.d/smb restart
-
 
 实例10：每星期六的晚上11 : 00 pm重启smb 
 命令：
 0 23 * * 6 /etc/init.d/smb restart
 
-
 实例11：每一小时重启smb 
 命令：
-* */1 * * * /etc/init.d/smb restart
 
+- */1 * * * /etc/init.d/smb restart
 
 实例12：晚上11点到早上7点之间，每隔一小时重启smb 
 命令：
-* 23-7/1 * * * /etc/init.d/smb restart
-实例13：每月的4号与每周一到周三的11点重启smb 
-命令：
-0 11 4 * mon-wed /etc/init.d/smb restart
-实例14：一月一号的4点重启smb 
-命令：
-0 4 1 jan * /etc/init.d/smb restart
 
+- 23-7/1 * * * /etc/init.d/smb restart
+  实例13：每月的4号与每周一到周三的11点重启smb 
+  命令：
+  0 11 4 * mon-wed /etc/init.d/smb restart
+  实例14：一月一号的4点重启smb 
+  命令：
+  0 4 1 jan * /etc/init.d/smb restart
 
 实例15：每小时执行/etc/cron.hourly目录内的脚本
 命令：
 01 * * * * root run-parts /etc/cron.hourly
 说明：
 run-parts这个参数了，如果去掉这个参数的话，后面就可以写要运行的某个脚本名，而不是目录名了
+```
+
+
+
 
 
 四、使用注意事项

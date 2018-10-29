@@ -2,7 +2,7 @@
 layout: post
 title: linux系统下uwsgi常用参数
 date: 2018-09-03
-tags: 博客
+tag: 博客
 ---
 
 
@@ -21,11 +21,11 @@ tags: 博客
         logto = /home/logs/ajuwsgi.log
 
 socket：
- 
+
     uwsgi监听的socket，可以为socket文件或ip地址+端口号(如0.0.0.0:9000)，取决于nginx中upstream的设置
 
 processes：
-    
+​    
     在app加载前切换到当前目录 
 
 chdir:
@@ -51,4 +51,4 @@ pidfile：
 daemonize：
 
     使进程在后台运行，并将日志打到指定的日志文件或者udp服务器（不会影响nginx日志的输出）
-        
+

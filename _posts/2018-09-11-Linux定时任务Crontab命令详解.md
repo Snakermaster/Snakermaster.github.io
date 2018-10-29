@@ -2,7 +2,7 @@
 layout: post
 title: Linux定时任务Crontab命令详解
 date: 2018-09-11
-tags: 博客
+tag: 博客
 ---
 #### linux 系统则是由 cron (crond) 这个系统服务来控制的。Linux 系统上面原本就有非常多的计划性工作，因此这个系统服务是默认启动的。另 外, 由于使用者自己也可以设置计划任务，所以， Linux 系统也提供了使用者控制计划任务的命令 :crontab 命令。
 
@@ -117,8 +117,8 @@ minute hour day month week command
 
 
 ​    
-    查看crontab服务是否已设置为开机启动，执行命令：
-    
+​    查看crontab服务是否已设置为开机启动，执行命令：
+​    
     ntsysv
     
     加入开机自动启动：

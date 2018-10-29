@@ -2,7 +2,7 @@
 layout: post
 title: "Git教程"
 date: 2017-07-13   
-tag: 工具 
+tags: 工具 
 ---
 
 ### 介绍       

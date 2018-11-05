@@ -131,9 +131,9 @@ style_fields = {"detail": "ueditor"}
 
 ```
 
-{% autoescape off %}
+% autoescape off %
 {{ course.detail }}
-{% endautoescape %}
+% endautoescape %
 ```
 
 
